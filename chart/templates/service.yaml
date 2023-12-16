@@ -12,6 +12,11 @@ spec:
     {{- if eq .Values.networking.serviceType "NodePort" }}
     nodePort: {{ default "" .Values.networking.nodePort }}
     {{- end }}
+    {{- if eq .Values.networking.serviceType "LoadBalancer" }}
+    {{- if .Values.networking.loadBalancerIP }}
+    loadbalancerIP: {{ .Values.networking.loadbalancerIP }}
+    {{- end }}
+    {{- end }}
   {{ if .Values.networking.publishQueryPort }}
   - name: queryport
     port: {{ .Values.networking.gamePort | int | add 1 }}
@@ -19,6 +24,11 @@ spec:
     protocol: UDP
     {{- if eq .Values.networking.serviceType "NodePort" }}
     nodePort: {{ default "" (.Values.networking.nodePort | int | add 1) }}
+    {{- end }}
+    {{- if eq .Values.networking.serviceType "LoadBalancer" }}
+    {{- if .Values.networking.loadBalancerIP }}
+    loadbalancerIP: {{ .Values.networking.loadbalancerIP }}
+    {{- end }}
     {{- end }}
   {{ end }}
   type: {{ .Values.networking.serviceType }}
