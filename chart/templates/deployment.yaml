@@ -88,12 +88,12 @@ spec:
       {{ if eq .Values.storage.kind "persistentVolumeClaim" }}
       - name: gamefiles
         persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-world-data
+          claimName: valheim-server-world-data
       {{ end }}
       {{ if eq .Values.serverStorage.kind "persistentVolumeClaim" }}
       - name: serverfiles
         persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-server-base-data
+          claimName: valheim-server-base-data
       {{ end }}
       {{ range .Values.extraVolumes }}
       - name: {{ .name }}
